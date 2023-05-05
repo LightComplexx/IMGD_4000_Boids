@@ -64,7 +64,7 @@ void AAgent::Update(TArray<class AAgent*> Agents) {
 
 FVector AAgent::Align(TArray<class AAgent*> Agents) {
 	FVector steering = FVector(0.f);
-	float perceptionRadius = 100.f;
+	float perceptionRadius = 200.f;
 	float total = 0.f;
 
 	for (AAgent* OtherAgent : Agents) {
@@ -87,7 +87,7 @@ FVector AAgent::Align(TArray<class AAgent*> Agents) {
 
 FVector AAgent::Cohesion(TArray<class AAgent*> Agents) {
 	FVector steering = FVector(0.f);
-	float perceptionRadius = 200.f;
+	float perceptionRadius = 500.f;
 	float total = 0.f;
 
 	for (AAgent* OtherAgent : Agents) {
@@ -111,14 +111,14 @@ FVector AAgent::Cohesion(TArray<class AAgent*> Agents) {
 
 FVector AAgent::Separation(TArray<class AAgent*> Agents) {
 	FVector steering = FVector(0.f);
-	float perceptionRadius = 100.f;
+	float perceptionRadius = 5000.f;
 	float total = 0.f;
 
 	for (AAgent* OtherAgent : Agents) {
 		float distance = FVector::Distance(GetActorLocation(), OtherAgent->GetActorLocation());
 
 		if (OtherAgent != this && distance < perceptionRadius) {
-			FVector diff = GetActorLocation() - OtherAgent->GetActorLocation();
+			FVector diff = GetActorLocation() - OtherAgent->GetActorLocation() + FVector(300.f);
 			diff /= distance;
 			steering += diff;
 			total++;
